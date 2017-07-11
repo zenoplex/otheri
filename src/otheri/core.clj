@@ -1,7 +1,21 @@
-(ns otheri.core
-  (:gen-class))
+(ns otheri.core ; define namespace
+  (:use
+   otheri.view
+   otheri.model))
+
+(defn on-command
+  "view handler"
+  [cmdline]
+  (let [cmd (first cmdline)
+        pos (second cmdline)]
+    (cond
+      (= cmd :move) (play-move pos)
+      (= cmd :exit) (System/exit 0)
+      :else nil)))
 
 (defn -main
-  "I don't do a whole lot ... yet."
+  "entry point"
   [& args]
-  (println "Hello, World!"))
+  (init-view on-command)
+  (init-game on-state-changed)
+  (start-ui))
