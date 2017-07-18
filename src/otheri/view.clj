@@ -3,6 +3,13 @@
    otheri.model
    [clojure.string :only (join)]))
 
+(def code-a 97) ; code for letter \a
+(def code-curly 123) ; next of letter \z 
+(def col-headers
+  (take b-size (map (comp str char) (range code-a code-curly))))
+(def col-header-str
+  (str " " (join " " col-headers)))
+
 (defn on-state-changed
   "handler for model change"
   [& e]
